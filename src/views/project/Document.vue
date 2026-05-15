@@ -29,7 +29,7 @@
       <div v-if="isGeneratingAll" class="global-loading">
         <el-icon class="is-loading" :size="50" color="#409eff"><Loading /></el-icon>
         <h3 style="margin-top: 20px;">大模型正在深度阅读项目智库...</h3>
-        <p style="color: #909399;">正在为您拆解并撰写：项目背景、核心创新、技术架构、市场前景，请稍候约30秒</p>
+        <p style="color: #909399;">正在为您拆解并撰写：需求分析、概要设计、详细设计、项目总结，请稍候约30秒</p>
       </div>
 
       <transition name="el-fade-in">
@@ -123,7 +123,7 @@ const projectId = route.params.id
 const hasGenerated = ref(false)
 const isGeneratingAll = ref(false)
 const isExporting = ref(false)
-const draftName = ref('挑战杯_初稿_v1')
+const draftName = ref('初稿_v1')
 
 // --- 历史版本状态 ---
 const historyVisible = ref(false)
@@ -132,10 +132,10 @@ const draftList = ref([])
 
 // --- 四大模块数据结构 ---
 const sections = reactive<Record<string, any>>({
-  background: { title: '项目背景与痛点', icon: Document, content: '', prompt: '', isLoading: false },
-  innovation: { title: '核心创新点', icon: Aim, content: '', prompt: '', isLoading: false },
-  architecture: { title: '技术架构实现', icon: Cpu, content: '', prompt: '', isLoading: false },
-  market: { title: '商业模式与市场', icon: DataLine, content: '', prompt: '', isLoading: false }
+  need_analysis: { title: '需求分析', icon: Document, content: '', prompt: '', isLoading: false },
+  outline_design: { title: '概要设计', icon: Aim, content: '', prompt: '', isLoading: false },
+  detailed_design: { title: '详细设计', icon: Cpu, content: '', prompt: '', isLoading: false },
+  project_summary: { title: '项目总结', icon: DataLine, content: '', prompt: '', isLoading: false }
 })
 
 // 1. 一键初始化全部模块
@@ -160,10 +160,10 @@ const handleGenerateInitial = async () => {
         const parsedData = JSON.parse(rawData)
 
         // 精准填充
-        sections.background.content = parsedData.background || 'AI 未能生成项目背景...'
-        sections.innovation.content = parsedData.innovation || 'AI 未能生成创新点...'
-        sections.architecture.content = parsedData.architecture || 'AI 未能生成技术架构...'
-        sections.market.content = parsedData.market || 'AI 未能生成市场前景...'
+        sections.need_analysis.content = parsedData.need_analysis || 'AI 未能生成需求分析...'
+        sections.outline_design.content = parsedData.outline_design || 'AI 未能生成创新点...'
+        sections.detailed_design.content = parsedData.detailed_design || 'AI 未能生成技术架构...'
+        sections.project_summary.content = parsedData.project_summary || 'AI 未能生成市场前景...'
 
         hasGenerated.value = true
         ElMessage.success('🎉 四个核心模块已全部精准解析并填充！')
@@ -213,10 +213,10 @@ const handleSaveAndExport = async () => {
   try {
     // 重新组合成纯净的 JSON 字符串发给后端
     const combinedContent = JSON.stringify({
-      background: sections.background.content,
-      innovation: sections.innovation.content,
-      architecture: sections.architecture.content,
-      market: sections.market.content
+      need_analysis: sections.need_analysis.content,
+      outline_design: sections.outline_design.content,
+      detailed_design: sections.detailed_design.content,
+      project_summary: sections.project_summary.content
     })
 
     // 第一步：存入数据库获取 draftId
@@ -284,10 +284,10 @@ const handlePreview = (draft: any) => {
     try {
       const parsedData = JSON.parse(draft.content)
       // 将历史数据重新填充到 4 个卡片
-      sections.background.content = parsedData.background || ''
-      sections.innovation.content = parsedData.innovation || ''
-      sections.architecture.content = parsedData.architecture || ''
-      sections.market.content = parsedData.market || ''
+      sections.need_analysis.content = parsedData.need_analysis || ''
+      sections.outline_design.content = parsedData.outline_design || ''
+      sections.detailed_design.content = parsedData.detailed_design || ''
+      sections.project_summary.content = parsedData.project_summary || ''
       
       hasGenerated.value = true
       draftName.value = draft.versionName + '_副本'

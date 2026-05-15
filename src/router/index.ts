@@ -30,8 +30,28 @@ const router = createRouter({
           path: 'members', // 注意这里不带斜杠，相当于 /projects/:id/members
           name: 'Members',
           component: () => import('../views/project/Members.vue')
-        }
+        },
         // 后续的 AI智库、看板等页面，都会加在这个数组里！
+        {
+          path: 'knowledge', 
+          name: 'Knowledge',
+          component: () => import('../views/project/Knowledge.vue')
+        },
+        {
+          path: 'document', // 注意不要带斜杠
+          name: 'Document',
+          component: () => import('../views/project/Document.vue')
+        },
+        {
+        path: 'tasks',
+        name: 'TaskBoard',
+        component: () => import('../views/project/TaskBoard.vue')
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('../views/project/Dashboard.vue')
+      }
       ]
     },
     {

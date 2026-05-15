@@ -6,7 +6,7 @@ import router from '../router'
 const request = axios.create({
   // 基础路径，Vite 会将 /api 代理到后端的 8080 端口
   baseURL: '/api/v1', 
-  timeout: 10000 // 请求超时时间
+  timeout: 60000 // 请求超时时间
 })
 
 // 2. 请求拦截器 (Request Interceptor)

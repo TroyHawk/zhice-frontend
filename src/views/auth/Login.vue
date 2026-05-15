@@ -76,6 +76,8 @@ const handleLogin = async () => {
       ElMessage.success('登录成功！欢迎来到智策')
       // 1. 将 Token 保存到浏览器的 localStorage 里面
       localStorage.setItem('token', res.data.token)
+      // userId 也保存一下，后续很多接口都需要用到
+      localStorage.setItem('userId', res.data.userId)
       // 2. 跳转到项目空间大厅
       router.push('/projects')
     } else {

@@ -31,6 +31,10 @@
             <el-icon><List /></el-icon>
             <span>敏捷任务看板</span>
           </el-menu-item>
+          <el-menu-item :index="`/projects/${projectId}/dashboard`">
+            <el-icon><DataAnalysis /></el-icon>
+            <span>数据分析看板</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
 
@@ -44,6 +48,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { User, Document, MagicStick, List, DataAnalysis } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()
